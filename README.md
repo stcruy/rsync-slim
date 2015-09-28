@@ -7,15 +7,13 @@ Use rsync options as on the command line.
 
 rsync needs to be installed on your machine. Or cwRsync on Windows.
 
-<!---
 ### Installation
 
 ```
 npm install rsync-slim --save-dev
 ```
--->
 
-### Examples
+### Usage
 
 
 #### Basic:
