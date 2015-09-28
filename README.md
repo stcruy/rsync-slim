@@ -5,7 +5,7 @@ Use rsync options as on the command line.
 
 ### Prerequisites
 
-rsync needs to be installed on your machine. Or cwRsync on Windows.
+rsync needs to be installed on your machine. Or [cwRsync](https://www.itefix.net/content/cwrsync-free-edition "cwRsync download page") on Windows.
 
 ### Installation
 
