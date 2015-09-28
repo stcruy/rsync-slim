@@ -48,7 +48,7 @@ gulp.task('deploy', function() {
 });
 ```
 with a file `secrets.json` like:
-```
+```json
 {
   "rsync": { "dest": "user@domain.com:/path/on/server" }
 }
