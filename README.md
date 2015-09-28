@@ -20,7 +20,7 @@ npm install rsync-slim --save-dev
 
 #### Basic:
 
-```
+```js
 var rsync = require('rsync-slim');
 
 rsync({
@@ -33,7 +33,7 @@ rsync({
 
 #### In a gulp task:
 
-```
+```js
 var rsync = require('rsync-slim');
 
 gulp.task('deploy', function() {
@@ -57,7 +57,7 @@ which you can keep private by adding a line `secrets.json` to the file `.gitigno
 
 
 #### Variations:
-```
+```js
 rsync({
   ....
   log: true,   // Will use console.log for logging.
@@ -107,7 +107,7 @@ rsync({
 - For Windows clients using cwRsync:
 
   Create a batch-file `rsync.bat` that sets cwRsync's required environment-variables, and put it in a location included in your PATH:
-  ```
+  ```dos
   @echo off
   setlocal
   set RSYNC_HOME=%PROGRAMFILES%\cwRsync
