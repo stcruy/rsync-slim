@@ -1,0 +1,26 @@
+{
+  "name": "rsync-slim",
+  "version": "1.0.0",
+  "description": "Slim wrapper around rsync",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stcruy/rsync-slim.git"
+  },
+  "keywords": [
+    "rsync",
+    "gulp",
+    "deploy",
+    "deployment",
+    "minimal",
+    "slim",
+    "wrap",
+    "wrapper"
+  ],
+  "author": "Steven Cruy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stcruy/rsync-slim/issues"
+  },
+  "homepage": "https://github.com/stcruy/rsync-slim"
+}
