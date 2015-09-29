@@ -41,6 +41,7 @@ gulp.task('deploy', function() {
     src: 'build',
     dest: secrets.rsync.dest,
     options: '-rtvhcz --delete --progress',
+    ssh: 'authFile',
     log: require('gulp-util').log
   });
 });
@@ -93,6 +94,11 @@ rsync({
 
   - `stdio` (String|Array), default=`'inherit'` :  
      The child process's input/output configuration. Is passed on as `stdio` option to [`child_process`](https://nodejs.org/api/child_process.html "NodeJS child_process documentation").`spawn`/`spawnSync`.
+
+  - `ssh` (String), default=`''` :  
+    If not empty then an option `-e "ssh -i <sshAuthFile>"` is generated.  
+    If only a filename without path, then the user's home folder + '/.ssh' is prepended (works on Window and *nix).  
+    On Windows, paths like `C:\Users\x\.ssh\sshAuthFile` are converted to cwRsync-compatible cygwin filepaths, e.g. `/cygdrive/c/Users/x/.ssh/sshAuthFile`.
 
 - `callback(err)` :
 

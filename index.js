@@ -11,17 +11,36 @@ module.exports = function(o, cb) {
   if(Array.isArray(src))  src = src.join(' ');
 
   var options = o.options || '';
-
-  var command = ['rsync', options, src, o.dest].join(' ');
   
-  // Log the rsync command we'll use, via console.log or a custom log-function.
+  var win = 'win32' === process.platform;
+
+  // If ssh is a only filename without path then prepend the user's home folder + '/.ssh'.
+  // On Windows, convert to a cygwin-type filepath, e.g. '/cygdrive/c/Users/x/.ssh/sshAuthFile"',
+  var ssh = o.ssh || '';
+  if (ssh) {
+    if (ssh.indexOf('\\') < 0  &&  ssh.indexOf('/') < 0) {
+      ssh = process.env[win ? 'USERPROFILE' : 'HOME'] + '/.ssh/' + ssh;
+    }
+    ssh = ssh
+      .replace(/^([a-zA-Z]):\\/, function (a, d){
+        return '/cygdrive/' + d.toLowerCase() + '/';
+      })
+      .replace(/\\/g, '/');
+    ssh =  '-e "ssh -i ' + ssh + '"';
+  }
+
+  var command = ['rsync', options, ssh, src, o.dest]
+    .filter(function (s) {return s;})
+    .join(' ');
+  
+  // Log the generated rsync command via console.log or a custom log-function.
   if (o.log) {
     if (typeof(o.log) != 'function')  o.log = console.log;
     o.log('Command: ' + command);
   }
   
   // Only when o.sync is explicitly set to false, run rsync asynchronously.
-  // o.sync undefined or true => use cp.spawnSync().
+  // Else if o.sync is undefined or true, use synchronous spawnSync().
   var sync = o.sync !== false;
   spawn = sync ? cp.spawnSync : cp.spawn;
 
@@ -32,7 +51,7 @@ module.exports = function(o, cb) {
   // --- Launch rsync.
 
   var r;
-  if ('win32' === process.platform) {
+  if (win) {
     r = spawn('cmd.exe', ['/s', '/c', '"' + command + '"'], {
       windowsVerbatimArguments: true,
       stdio: stdio,
