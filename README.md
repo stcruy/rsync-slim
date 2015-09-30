@@ -41,7 +41,6 @@ gulp.task('deploy', function() {
     src: 'build',
     dest: secrets.rsync.dest,
     options: '-rtvhcz --delete --progress',
-    ssh: 'authFile',
     log: require('gulp-util').log
   });
 });
@@ -59,8 +58,9 @@ which you can keep private by adding a line `secrets.json` to the file `.gitigno
 ```js
 rsync({
   ....
-  log: true,   // Will use console.log for logging.
-  sync: false  // Launches rsync in async process; script doesn't wait.
+  ssh: 'authFile', // Use ssh with this key-file.
+  log: true,       // Will simply use console.log for logging.
+  sync: false      // Launches rsync in async process; script doesn't wait.
 },
   function(err) {  // Custom callback function.
     console.log(err);
@@ -98,7 +98,9 @@ rsync({
   - `ssh` (String), default=`''` :  
     If not empty then an option `-e "ssh -i <sshAuthFile>"` is generated.  
     If only a filename without path, then the user's home folder + '/.ssh' is prepended (works on Window and *nix).  
-    On Windows, paths like `C:\Users\x\.ssh\sshAuthFile` are converted to cwRsync-compatible cygwin filepaths, e.g. `/cygdrive/c/Users/x/.ssh/sshAuthFile`.
+    Windows paths like `C:\Users\x\.ssh\sshAuthFile` are converted to cwRsync-compatible cygwin filepaths, e.g. `/cygdrive/c/Users/x/.ssh/sshAuthFile`.  
+    
+    Tip: to use rsync without having to give a password every time, set up ssh-key files [like this](https://www.itefix.net/content/i-want-set-ssh-communication-without-passwords-0).
 
 - `callback(err)` :
 
