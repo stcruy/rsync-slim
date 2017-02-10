@@ -58,7 +58,7 @@ which you can keep private by adding a line `secrets.json` to the file `.gitigno
 ```js
 rsync({
   ....
-  ssh: 'authFile', // Use ssh with this key-file.
+  ssh: 'authFile', // Use ssh with this keyfile.
   log: true,       // Will simply use console.log for logging.
   sync: false      // Launches rsync in async process; script doesn't wait.
 },
@@ -71,7 +71,7 @@ rsync({
 
 ### API
 
-`rsync(settings, callback)` :
+`rsync(settings, [callback])` :
 
 - `settings` :
 
@@ -81,7 +81,7 @@ rsync({
   - `dest` (String), required :  
     the destination server+path.
 
-  - `options` (Object) :  
+  - `options` (String) :  
      the raw rsync-command options.
   
   - `log` (Boolean|Function) :  
@@ -104,7 +104,7 @@ rsync({
 
 - `callback(err)` :
 
-  is called when rsync finishes. `err` is `null` on success, else an `Error` object.
+  Optional. Is called when rsync finishes. `err` is `null` on success, else an `Error` object.
 
   If no callback is given and rsync finishes with an error, then an `Error` object is `throw`n instead.
 
